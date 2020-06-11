@@ -14,6 +14,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('movies/', 'MovieController@index');
     Route::get('movies/{movie}', 'MovieController@show');
     Route::get('movieByTitle/', 'MovieController@getMoviesByTitle');
+
+    Route::patch('like/', 'LikeController@like');
 });
 
 Route::middleware(['jwt.verify','check.admin'])->prefix('admin')->group(function(){
