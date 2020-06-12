@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Penalty;
 use Illuminate\Database\Eloquent\Model;
 
 class Rent extends Model
@@ -13,5 +14,10 @@ class Rent extends Model
     protected $hidden = [
         'id'
     ];
+
+    public function penalty()
+    {
+        return $this->hasOne(Penalty::class);
+    }
 
 }
