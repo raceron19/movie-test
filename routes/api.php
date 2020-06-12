@@ -16,6 +16,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('movieByTitle/', 'MovieController@getMoviesByTitle');
 
     Route::patch('like/', 'LikeController@like');
+
+    Route::post('sale/', 'SaleController@sale');
+    Route::post('rent/', 'RentController@rent');
 });
 
 Route::middleware(['jwt.verify','check.admin'])->prefix('admin')->group(function(){
@@ -26,5 +29,5 @@ Route::middleware(['jwt.verify','check.admin'])->prefix('admin')->group(function
     Route::patch('movies/availability/{movie}', 'MovieController@remove');
     Route::delete('movies/{movie}', 'MovieController@destroy');
     
-   
+    Route::patch('rent/return', 'RentController@returnRent');
 });
