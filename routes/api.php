@@ -30,4 +30,6 @@ Route::middleware(['jwt.verify','check.admin'])->prefix('admin')->group(function
     Route::delete('movies/{movie}', 'MovieController@destroy');
     
     Route::patch('rent/return', 'RentController@returnRent');
+
+    Route::patch('/user/toggleAdmin','AuthController@toggleAdmin');
 });

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\loginRequest;
 use App\Http\Requests\registerRequest;
+use App\Http\Requests\ToggleAdminRoleRequest;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
@@ -69,5 +70,28 @@ class AuthController extends Controller
                 ]
             ], 500);
         }
+    }
+
+    public function toggleAdmin(ToggleAdminRoleRequest $request)
+    {
+        $user = User::find($request->user_id);
+        if ($user) {
+            $admin = ($user->admin) ? false : true;
+            $user->update(['admin' => $admin]);
+            $data = ['data' => [
+                'type' => 'user',
+                'id' => $user->id,
+                'attributes' => [ $user ] 
+            ]];
+        }
+        else{
+            $data = $response = ['error' => [
+                'status' => '202',
+                'title' => 'User not found',
+                'detail' => 'The given user isn\'t registered'
+            ]];
+        }
+        return response()->json($data,200);
+        
     }
 }
